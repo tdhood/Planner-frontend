@@ -1,25 +1,34 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { useState, useEffect } from "react";
+// import Navigation from "./Navigation";
+// import RouteList from "./RouteList";
 
+
+/**
+ * App -- wrapper component
+ *
+ * props= none
+ * state= 
+ * -user: null or {
+        username: username,
+        password: password,
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        isAdmin: boolean,
+        application: [...]
+
+      }
+ * -token: null or 'token'
+ * 
+ * App -> UserContext -> {Navigation, RouteList}
+ *
+ */
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  console.log("App");
+  const [user, setUser] = useState(null);
+  const [token, setToken] = useState(null);
+
 }
 
 export default App;

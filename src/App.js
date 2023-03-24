@@ -1,8 +1,11 @@
 import './App.css';
 import React, { useState, useEffect } from "react";
+import { BulletApi } from './api';
+import jwt_decode from "jwt-decode";
 // import Navigation from "./Navigation";
-// import RouteList from "./RouteList";
-
+import RouteList from "./RouteList";
+import { BrowserRouter } from "react-router-dom";
+import userContext from "./userContext";
 
 /**
  * App -- wrapper component
@@ -15,9 +18,7 @@ import React, { useState, useEffect } from "react";
         firstName: firstName,
         lastName: lastName,
         email: email,
-        isAdmin: boolean,
         application: [...]
-
       }
  * -token: null or 'token'
  * 
@@ -28,7 +29,48 @@ function App() {
   console.log("App");
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
+  console.log("user=", user, "token=", token)
 
+  useEffect(
+    function fetchUserOnChange() {
+      console.log("fetUserOnChange")
+
+      async function fetchUser(username) {
+      const userData = await BulletApi.getUser(username);
+      setUser(userData)
+      }
+      if (token !== null) {
+        const { username } = jwt_decode(token);
+        fetchUser(username)
+      }
+    },
+    [token]
+  )
+
+  /**makes call to backend API to log in an existing user 
+   * takes loginInfo (obj) {
+        username: username,
+        password: password,
+      }
+    generates token that updates in BulletApi class
+    sets token state
+  */
+  async function login(loginInfo) {
+    const [user, token] = await BulletApi.login(loginInfo);
+    console.log('user', user, 'token', token)
+    setToken(token);
+    setUser(user)
+  }
+
+  return (
+    <div className="App">
+      <userContext.Provider value={{ user }}>
+        <BrowserRouter>
+          <RouteList login={login} />
+        </BrowserRouter>
+      </userContext.Provider>
+    </div>
+  );
 }
 
 export default App;

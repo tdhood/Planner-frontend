@@ -41,6 +41,12 @@ class BulletApi {
     let res = await this.request(`myCalendar/${username}`);
     return res.user;
   }
+
+  /**Get user bullet info */
+  static async getBullet(username) {
+    let res = await this.request(`myCalendar/${username}`);
+    return res.user_data
+  }
 }
 
 export { BulletApi }

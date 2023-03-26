@@ -15,6 +15,7 @@ function Homepage() {
   console.log("homepage");
   const navigate = useNavigate();
   const { user } = useContext(userContext);
+  console.log('user', user)
 
   //TODO:import bootstrap, links to buttons style
   return (
@@ -33,6 +34,7 @@ function Homepage() {
         </div>
       )}
       {user !== null && (
+        // navigate(`/myCalendar/${user.username}`)
         <div>
           <h1>Bullet</h1>
           <h3>All the jobs in one, convenient place.</h3>

@@ -1,5 +1,6 @@
 import { BulletApi } from "./api";
 import React, { useEffect, useState, useContext } from "react";
+import TaskList from "./TaskList";
 
 
 function UserBullet({userData}) {
@@ -7,6 +8,7 @@ function UserBullet({userData}) {
   console.log('user=', userData)
 
   const user = userData.user
+
 
   // const [userData, setUserData] = useState({
   //     data: null,
@@ -23,6 +25,7 @@ function UserBullet({userData}) {
   return (
     <div className="UserBullet">
       <h1>{user.username}'s Bullet Journal</h1>
+      <TaskList user={user} userTasks={userData.tasks}/>
       
     </div>
   );

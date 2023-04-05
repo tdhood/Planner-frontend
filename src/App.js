@@ -4,7 +4,7 @@ import { BulletApi } from './api';
 import jwt_decode from "jwt-decode";
 // import Navigation from "./Navigation";
 import RouteList from "./RouteList";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, useNavigate } from "react-router-dom";
 import userContext from "./userContext";
 
 /**
@@ -29,7 +29,8 @@ function App() {
   console.log("App");
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
-  console.log("user=", user, "token=", token)
+  const [userData, setUserData] = useState(null);
+  console.log("user=", user, "token=", token, 'userData=', userData)
 
   useEffect(
     function fetchUserOnChange() {
@@ -59,14 +60,19 @@ function App() {
     const [user, token] = await BulletApi.login(loginInfo);
     console.log('user', user, 'token', token)
     setToken(token);
-    setUser(user)
+    setUser(user);
+    
+    if(setToken !== null && setUser !== null) {
+      const userData = await BulletApi.getBullet(user);
+      setUserData(userData);
+    }
   }
 
   return (
     <div className="App">
       <userContext.Provider value={{ user }}>
         <BrowserRouter>
-          <RouteList login={login} />
+          <RouteList login={login} userData={userData}/>
         </BrowserRouter>
       </userContext.Provider>
     </div>

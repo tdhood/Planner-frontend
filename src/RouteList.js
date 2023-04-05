@@ -1,6 +1,6 @@
 import LoginForm from "./LoginForm";
 import Homepage from "./Homepage";
-import UserHome from "./UserHome";
+import UserBullet from "./UserBullet";
 import { Navigate, Route, Routes } from "react-router-dom";
 
 /**Routes for browser
@@ -11,13 +11,13 @@ import { Navigate, Route, Routes } from "react-router-dom";
  * App --> RouterList --> { Homepage, CompanyList, CompanyDetail, JobList, LoginForm,
  * SignupForm, ProfileForm, Logout}
  */
-function RouteList({ login, signup, logout }) {
+function RouteList({ login, signup, logout, userData }) {
     console.log("RouteList")
     return (
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/login" element={<LoginForm login={login}/>} />
-        <Route path="/myCalender/:username" element={<UserHome />}/>
+        <Route path="/myCalendar/:username" element={<UserBullet userData={userData}/>}/>
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     );

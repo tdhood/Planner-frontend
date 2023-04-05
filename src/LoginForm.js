@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"
 
+
 /**form to login in existing user
  *
  * Props:
@@ -12,8 +13,8 @@ import { useNavigate } from "react-router-dom"
  * RouteList -> LoginForm
  */
 function LoginForm({ login }) {
-  const navigate = useNavigate()
   console.log("loginform");
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({username: '', password: ''});
 
   /** Update form input. */
@@ -28,9 +29,13 @@ function LoginForm({ login }) {
   /** Call parent function. */
   async function handleSubmit(evt) {
     evt.preventDefault();
+    try {
     await login(formData);
     console.log('formData', formData)
     navigate(`/myCalendar/${formData.username}`)
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   return (

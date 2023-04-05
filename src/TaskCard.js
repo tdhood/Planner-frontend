@@ -9,10 +9,11 @@
  * -None
  */
 
-function TaskCard({ task }) {
+function TaskCard({ task, priority, is_complete }) {
+    console.log("TaskCard")
     return (
         <div className='TaskCard'>
-            <h1>{task.title}</h1>
+            <p>{task}</p>
         </div>
     )
 }

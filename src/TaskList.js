@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import TaskCard from "./TaskCard";
+import TaskListCard from "./TaskListCard";
 
 /**Shows list of all tasks and search form
  * 
@@ -11,13 +11,13 @@ import TaskCard from "./TaskCard";
  * -taskList
  * -params
  *
- * UserBullet --> TaskList --> { SearchForm, TaskCard }
+ * UserBullet --> TaskList --> { TaskListCard }
  */
 function TaskList({user, userTasks}) {
     console.log("TaskList");
 
 
-    const [tasks, setTasks] = useState({
+    const [taskLists, setTasks] = useState({
         data: userTasks,
         isLoading: false
     });
@@ -25,13 +25,13 @@ function TaskList({user, userTasks}) {
 
     useEffect(function getTaskListOnUpdate() {
         console.debug("tasklist useEffect getTaskListOnUpdate");
-    }, [tasks]);
+    }, [taskLists]);
 
     return (
         <div className="TaskList">
-            <h1>Tasks List</h1>
-            {tasks.data.map((task) => (
-                <TaskCard key={task.id} task={task.title} />
+            <h1>Task Lists</h1>
+            {taskLists.data.map((taskList) => (
+                <TaskListCard key={taskList.id} taskList={taskList.title} content={taskList.content}/>
             ))}
         </div>
     )
